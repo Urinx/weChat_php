@@ -289,7 +289,7 @@ function en_sentenceAPI(){
 }
 
 function simsimi($word){
-    $key='57012d80-23ec-4a97-8f56-cfb97e4125cd';
+    $key='f615a561-6579-4ce8-a2df-b5b8d9093282';
     $simsimi_api_url='http://sandbox.api.simsimi.com/request.p?key='.$key.'&lc=ch&ft=0.0&text='.$word;
     $simjson=file_get_contents($simsimi_api_url);
     $simsimi=json_decode($simjson,1);
@@ -304,7 +304,10 @@ function simsimi($word){
         $backws='401-'.$simsimi['msg']."\n".'看来小u的Trial-key到期了，快提醒我吧。';
     }
     elseif ($simsimi['result']=='404') {
-        $backws='404-'.$simsimi['msg']."\n".'这也能遇上404!!';
+        if(preg_match('/。。/i', $word)) {
+            $backws='(*^__^*) 嘻嘻……'.'/:B-)';
+        }
+        else{$backws='404-'.$simsimi['msg']."\n".'这也能遇上404!!'.'/::|';}
     }
     elseif ($simsimi['result']=='500') {
         $backws='500-'.$simsimi['msg']."\n".'服务器出问题，小u表示无能为力。';
@@ -313,6 +316,10 @@ function simsimi($word){
         $backws='小u还不会回答这个问题的说...';
     }
     $backws=str_replace(array('贱鸡','小黄鸡','黄鸡','xhjchat'), array('小u','小u','小u','urinx'), $backws);
+    if(preg_match('/微信/i',$backws)) {
+        $backws='该消息被防火长城,不对。。是被小u消音了，原因你懂的。。保护你的身体，有爱你的健康'.'/:B-)';
+        $backws.="\n如果你发现有害身心健康的信息，请及时截图报告小u，小u全力进行封杀。";
+    }
     return $backws;
 }
 

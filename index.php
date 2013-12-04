@@ -23,6 +23,13 @@ if(W::isPOST()){
         array('title'=>'任务进度','cover'=>$web.'/img/taskprocess.png','link'=>$mp.'?__biz=MzA3MjAzMTgyMA==&appmsgid=10000058&itemidx=3&sign=5edb8953ca274271a239626c434df4a2&uin=MTg0MTcyODUwMQ%3D%3D&key=1f75b224f2ddfcb6c670a05130da7f8843902f3277a89843ae023cec9a770260f883566234a1185fec8257197f241425&devicetype=android-17&version=25000104&lang=zh_CN'),
         array('title'=>'联系我们','cover'=>$web.'/img/contactme.png','link'=>$mp.'?__biz=MzA3MjAzMTgyMA==&appmsgid=10000058&itemidx=4&sign=a7d37be0a672e5c2085330799836992b&uin=MTg0MTcyODUwMQ%3D%3D&key=1f75b224f2ddfcb62c58bc42a307d4f512acd5bfc822af05b55a2f55325983e93e612b5c098985be9b9909a57e7eab5e&devicetype=android-17&version=25000104&lang=zh_CN')
     );
+    $biaoqing=array(
+        '/::)','/::~','/::B','/::|','/:8-)','/::<','/::$','/::X','/::Z','/::\'(','/::-|',
+        '/::@','/::P','/::D','/::O','/::(','/::+','/:--b','/::Q','/::T','/:,@P','/:,@-D',
+        '/::d','/:,@o','/::g','/:|-)','/::!','/::L','/::>','/::,@','/:,@f','/::-S','/:?',
+        '/:,@x','/:,@@','/::8','/:,@!','/:!!!','/:xx','/:bye','/:wipe','/:dig','/:handclap',
+        '/:&-(','/:B-)','/:<@','/:@>','/::-O','/:>-|','/:P-(','/::\'|','/:X-)','/::*','/:@x',
+        '/:8*');
 
     // 接收位置
     if($type=='location'){
@@ -242,6 +249,10 @@ if(W::isPOST()){
                 }
             }
         }
+        //biaoqing
+        elseif (preg_match('#(/:)#i',$content)) {
+            $data=$biaoqing[rand(0,count($biaoqing)-1)];
+        }
     }
 
     //接收图片
@@ -270,7 +281,38 @@ if(W::isPOST()){
         }
         else{exit(W::response($xml,$data));}
     }
-    else{exit(W::response($xml,simsimi($content)));}
+    else{
+        if (rand(1,8)==6){
+            switch (rand(1,4)) {
+                case 1:
+                    exit(W::response($xml,"聊了这么久小u给你讲个笑话吧：\n".jokes()));
+                    break;
+
+                case 2:
+                    $news=baiduNews();
+                    $data=array(array('title'=>'关心国家大事，了解天下奇谈，小u给你播报新闻啦！'));
+                    for ($i=0;$i<5;$i++){ 
+                        array_push($data,array('title'=>$news[title][$i]."\n".'------------------------------------------','note'=>$news[resrc][$i],'link'=>$news[url][$i]));
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
+
+                case 3:
+                    exit(W::response($xml,"四六级没考过吧孩子，还是乖乖跟我学英语，嗯哼：\n".en_sentenceAPI()."\n哎哟，你还可以发英语单词考我哦，没有我不知道的，嘻嘻/:B-)"));
+                    break;
+
+                case 4:
+                    exit(W::response($xml,"妹子爆个照吧，小u想看看嘛，看了会说话嘛/:8*"));
+                    break;
+                
+                default:
+                    break;
+            }
+        }
+        else{
+            exit(W::response($xml,simsimi($content)));
+        }
+    }
 }
 
 ?>
