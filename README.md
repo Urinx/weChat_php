@@ -9,17 +9,18 @@
 ![urinx](http://paiplace.5gbfree.com/wechat/img/xiaou.jpg "urinx")
 
 ###文件说明
->//主文件
-> 
->index.php
-> 
->//整合各api
-> 
->wechat-api.php
-> 
->//该文件夹下放的是各api的演示php
-> 
->./api/
+>1.0
+>>//主文件
+>> 
+>>index.php
+>> 
+>>//整合各api
+>> 
+>>wechat-api.php
+>> 
+>>//该文件夹下放的是各api的演示php
+>> 
+>>./api/
 
 ###实现的功能
 [小u]
