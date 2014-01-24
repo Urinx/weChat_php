@@ -11,11 +11,33 @@
 ###文件说明
 >1.0
 >>//主文件
+>>
 >>index.php
+>>
 >>//整合各api
+>>
 >>wechat-api.php
+>>
 >>//该文件夹下放的是各api的演示ph
+>>
 >>./api/
+>
+>2.0 based on SAE
+>>//主文件
+>>
+>>index.php
+>>
+>>//整合各api
+>>
+>>wechat-api.php
+>>
+>>//该文件夹下放的是各api的演示ph
+>>
+>>./api/
+>>
+>>//python脚本提供的api
+>>
+>>./urinx.sinaapp.com
 
 ###实现的功能
 [小u]
