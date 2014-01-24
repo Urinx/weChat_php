@@ -64,6 +64,18 @@
 [彩票]
 :每天的彩票信息一目了然
 
+[stack]
+:查看stack overflow上的最新内容
+
+[>python]
+:在微信上使用python终端
+
+[>mysql]
+:在微信上简单的操作后台mysql
+
+[>sqli]
+:练习sql injection用，目前完善中...
+
 翻译:发送"#+你要翻译的内容",即可收到详细结果，如果是英文，可以直接发送英文。例如:doofus,#doofus,#笨蛋
 
 天气+找小u:点击下面的“+”，发送你的的位置信息，即可收到本地的天气预报，并且看到你和小u的距离
@@ -100,3 +112,4 @@ http://paiplace.5gbfree.com/
 
 ###contact me
 >QQ:1336006643
+>Wechat:google-2
