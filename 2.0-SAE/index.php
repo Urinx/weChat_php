@@ -1,4 +1,3 @@
-
 <?php
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
 header('Content-Type: text/html; charset=utf-8');
@@ -66,7 +65,7 @@ if(W::isPOST()){
                 $data='已退出Python终端...';
             }
             else{
-            	$data=python($content);
+                $data=python($content);
             }
         }
         //mysql console
@@ -82,23 +81,23 @@ if(W::isPOST()){
                 if(preg_match('#^(select)#i',$content)){
                     $sqlresult=$mysql->getData($content);
                     if($mysql->errno()!=0){
-    					$data="Error:".$mysql->errmsg();
-					}
+                        $data="Error:".$mysql->errmsg();
+                    }
                     else{
                         $data='mysql> '.$content."\n".'-----------------'."\n";
                         foreach($sqlresult as $row){
-    						foreach($row as $key=>$value){
-        						$data.=$key.':'.$value."\n";
-    						}
+                            foreach($row as $key=>$value){
+                                $data.=$key.':'.$value."\n";
+                            }
                             $data.='------------------'."\n";
-						}
+                        }
                     }
                 }
                 else{
                     $mysql->runSql($content);
                     if($mysql->errno()!=0){
-    					$data="Error:".$mysql->errmsg();
-					}
+                        $data="Error:".$mysql->errmsg();
+                    }
                 }
             }
         }
@@ -118,13 +117,13 @@ if(W::isPOST()){
                 $data=array(array('title'=>'测试','note'=>'test','link'=>'http://xiaouri.sinaapp.com/test2.php'));
             }
             else{
-            	$data='...';
+                $data='...';
             }
         }
         //--------------------
         else{
             $content=strtolower(trim($xml->Content));
-            if($content!=='stack' && ctype_alpha($content)) {
+            if($content!=='bilibili' && $content!=='stack' && ctype_alpha($content)) {
                 $data=translateAPI($content);
             }
             //python
@@ -368,7 +367,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the buffer.";
             //stackoverflow
             elseif($content=='stack'){
                 $res=stackoverflow();
-                $data=array(array('title'=>'Stack Overflow','cover'=>$web.'/img/meizi/'.mt_rand(0,8).'.jpg'));
+                $data=array(array('title'=>'Stack Overflow','cover'=>$web.'/img/meizi/'.mt_rand(0,9).'.jpg'));
                 for ($i=0; $i < count($data); $i++) {
                     if ($res[$i]) {
                         array_push($data, array('title'=>str_replace('-',' ',$res[$i]['title']),'note'=>'votes:'.$res[$i]['vote'].' answers:'.$res[$i]['answer'].' views:'.$res[$i]['view'],'link'=>'http://stackoverflow.com/questions/'.$res[$i]['id']));
@@ -378,6 +377,16 @@ Type 'help;' or '\h' for help. Type '\c' to clear the buffer.";
             //md5
             elseif(preg_match('#^(md5:)(.+)#i',$content,$matches)) {
                 $data=md5($matches[2]);
+            }
+            //bilibili
+            elseif($content=='bilibili'){
+                $res=bilibili();
+                $data=array(array('title'=>'Bilibili','cover'=>$web.'/img/bili/'.mt_rand(0,10).'.jpg'));
+                for ($i=0; $i < count($data); $i++) {
+                    if ($res[$i]) {
+                        array_push($data, array('title'=>$res[$i]['category'].':'.$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                    }
+                }
             }
         }
     }
@@ -425,7 +434,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the buffer.";
     }
     else{
         if (rand(1,15)==6){
-            switch (rand(1,4)) {
+            switch (rand(1,7)) {
                 case 1:
                     exit(W::response($xml,"聊了这么久小u给你讲个笑话吧：\n".jokes()));
                     break;
@@ -447,6 +456,39 @@ Type 'help;' or '\h' for help. Type '\c' to clear the buffer.";
                     exit(W::response($xml,"妹子爆个照吧，小u想看看嘛，看了会说话嘛/:8*"));
                     break;
                 
+                case 5:
+                    $res=$mysql->getData("SELECT * FROM moments ORDER BY ID DESC LIMIT 5");
+                    $data=array(array('title'=>'动态','cover'=>$web.'/img/meizi/2.jpg'));
+                    for ($i=0; $i < count($data); $i++) {
+                        if ($res[$i]) {
+                            array_push($data, array('title'=>$res[$i]['alias'].':','note'=>$res[$i]['moment']."\n".$res[$i]['date'],'cover'=>$res[$i]['photo']));
+                        }
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
+                
+                case 6:
+                    $res=stackoverflow();
+                    $data=array(array('title'=>'Stack Overflow','cover'=>$web.'/img/meizi/'.mt_rand(0,9).'.jpg'));
+                    for ($i=0; $i < count($data); $i++) {
+                        if ($res[$i]) {
+                            array_push($data, array('title'=>str_replace('-',' ',$res[$i]['title']),'note'=>'votes:'.$res[$i]['vote'].' answers:'.$res[$i]['answer'].' views:'.$res[$i]['view'],'link'=>'http://stackoverflow.com/questions/'.$res[$i]['id']));
+                        }
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
+                
+                case 7:
+                    $res=bilibili();
+                    $data=array(array('title'=>'Bilibili','cover'=>$web.'/img/bili/'.mt_rand(0,10).'.jpg'));
+                    for ($i=0; $i < count($data); $i++) {
+                        if ($res[$i]) {
+                            array_push($data, array('title'=>$res[$i]['category'].':'.$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                        }
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
+                    
                 default:
                     break;
             }
