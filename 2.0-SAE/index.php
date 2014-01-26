@@ -123,7 +123,8 @@ if(W::isPOST()){
         //--------------------
         else{
             $content=strtolower(trim($xml->Content));
-            if($content!=='bilibili' && $content!=='stack' && ctype_alpha($content)) {
+            $keywords=array('freebuf','bilibili','stack');
+            if(!in_array($content,$keywords) && ctype_alpha($content)) {
                 $data=translateAPI($content);
             }
             //python
@@ -391,10 +392,110 @@ Type 'help;' or '\h' for help. Type '\c' to clear the buffer.";
             //yyets
             elseif($content=='人人影视'){
                 $res=yyets();
-                $data=array(array('title'=>'人人影视','cover'=>$web.'/img/meizi/'.mt_rand(0,9).'.jpg'));
+                $data=array(array('title'=>'人人影视','cover'=>$web.'/img/yyets.png'));
                 for ($i=0; $i < count($data); $i++) {
                     if ($res[$i]) {
                         array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'cover'=>$res[$i]['cover'],'link'=>$res[$i]['link']));
+                    }
+                }
+            }
+            //songshu
+            elseif($content=='松鼠'){
+                $res=songshu();
+                $data=array(array('title'=>'科学松鼠会','cover'=>$web.'/img/songshu.gif'));
+                for ($i=0; $i < count($data); $i++) {
+                    if ($res[$i]) {
+                        array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                    }
+                }
+            }
+            //ifanr
+            elseif($content=='爱范'){
+                $res=ifanr();
+                $data=array(array('title'=>'爱范儿 · Beats of Bits','cover'=>$web.'/img/ifanr.gif'));
+                for ($i=0; $i < count($data); $i++) {
+                    if ($res[$i]) {
+                        array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'cover'=>$res[$i]['cover'],'link'=>$res[$i]['link']));
+                    }
+                }
+            }
+            //dushu
+            elseif($content=='读书'){
+                $res=bookrank();
+                $data=array(array('title'=>'读书排行榜','cover'=>$web.'/img/meizi/'.mt_rand(0,9).'.jpg'));
+                for ($i=0; $i < count($data); $i++) {
+                    if ($res[$i]) {
+                        array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                    }
+                }
+            }
+            //matrix67
+            elseif($content=='matrix67'){
+                $res=matrix67();
+                $data=array(array('title'=>'matrix67','cover'=>$web.'/img/matrix67.png'));
+                for ($i=0; $i < count($data); $i++) {
+                    if ($res[$i]) {
+                        array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                    }
+                }
+            }
+            //freebuf
+            elseif($content=='freebuf'){
+                $res=freebuf();
+                $data=array(array('title'=>'Freebuf','cover'=>$web.'/img/freebuf.jpg'));
+                for ($i=0; $i < count($data); $i++) {
+                    if ($res[$i]) {
+                        array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                    }
+                }
+            }
+            //nginx
+            elseif($content=='运维'){
+                $res=nginx();
+                $data=array(array('title'=>'好的架构减少运维，好的运维反哺架构','cover'=>$web.'/img/meizi/'.mt_rand(0,9).'.jpg'));
+                for ($i=0; $i < count($data); $i++) {
+                    if ($res[$i]) {
+                        array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                    }
+                }
+            }
+            //shejidaren
+            elseif($content=='设计达人'){
+                $res=shejidaren();
+                $data=array(array('title'=>'设计达人-爱设计，爱分享。','cover'=>$web.'/img/meizi/'.mt_rand(0,9).'.jpg'));
+                for ($i=0; $i < count($data); $i++) {
+                    if ($res[$i]) {
+                        array_push($data, array('title'=>$res[$i]['title'],'cover'=>$res[$i]['cover'],'link'=>$res[$i]['link']));
+                    }
+                }
+            }
+            //91ri
+            elseif($content=='91ri'){
+                $res=ri91();
+                $data=array(array('title'=>'网络安全攻防研究室','cover'=>$web.'/img/91ri.gif'));
+                for ($i=0; $i < count($data); $i++) {
+                    if ($res[$i]) {
+                        array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                    }
+                }
+            }
+            //wooyun
+            elseif($content=='乌云'){
+                $res=wooyun();
+                $data=array(array('title'=>'wooyun.org 最新提交漏洞','cover'=>$web.'/img/wooyun.png'));
+                for ($i=0; $i < count($data); $i++) {
+                    if ($res[$i]) {
+                        array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                    }
+                }
+            }
+            //0x50sec
+            elseif($content=='0x50sec'){
+                $res=sec0x50();
+                $data=array(array('title'=>'Web安全手册,专注Web安全','cover'=>$web.'/img/0x50sec.png'));
+                for ($i=0; $i < count($data); $i++) {
+                    if ($res[$i]) {
+                        array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
                     }
                 }
             }
@@ -444,7 +545,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the buffer.";
     }
     else{
         if (rand(1,10)==6){
-            switch (rand(1,8)) {
+            switch (rand(1,18)) {
                 case 1:
                     exit(W::response($xml,"聊了这么久小u给你讲个笑话吧：\n".jokes()));
                     break;
@@ -501,7 +602,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the buffer.";
                 
                 case 8:
                     $res=yyets();
-                    $data=array(array('title'=>'人人影视','cover'=>$web.'/img/meizi/'.mt_rand(0,9).'.jpg'));
+                    $data=array(array('title'=>'人人影视','cover'=>$web.'/img/yyets.png'));
                     for ($i=0; $i < count($data); $i++) {
                         if ($res[$i]) {
                             array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'cover'=>$res[$i]['cover'],'link'=>$res[$i]['link']));
@@ -509,7 +610,117 @@ Type 'help;' or '\h' for help. Type '\c' to clear the buffer.";
                     }
                     exit(W::response($xml,$data,'news'));
                     break;
+                
+                case 9:
+                    $res=songshu();
+                    $data=array(array('title'=>'科学松鼠会','cover'=>$web.'/img/songshu.gif'));
+                    for ($i=0; $i < count($data); $i++) {
+                        if ($res[$i]) {
+                            array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                        }
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
+                
+                case 10:
+                    $res=ifanr();
+                    $data=array(array('title'=>'爱范儿 · Beats of Bits','cover'=>$web.'/img/ifanr.gif'));
+                    for ($i=0; $i < count($data); $i++) {
+                        if ($res[$i]) {
+                            array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'cover'=>$res[$i]['cover'],'link'=>$res[$i]['link']));
+                        }
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
+                
+                case 11:
+                    $res=bookrank();
+                    $data=array(array('title'=>'读书排行榜','cover'=>$web.'/img/meizi/'.mt_rand(0,9).'.jpg'));
+                    for ($i=0; $i < count($data); $i++) {
+                        if ($res[$i]) {
+                            array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                        }
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
+                
+                case 12:
+                    $res=matrix67();
+                    $data=array(array('title'=>'matrix67','cover'=>$web.'/img/matrix67.png'));
+                    for ($i=0; $i < count($data); $i++) {
+                        if ($res[$i]) {
+                            array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                        }
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
                     
+                case 13:
+                    $res=freebuf();
+                    $data=array(array('title'=>'Freebuf','cover'=>$web.'/img/freebuf.jpg'));
+                    for ($i=0; $i < count($data); $i++) {
+                        if ($res[$i]) {
+                            array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                        }
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
+                
+                case 14:
+                    $res=nginx();
+                    $data=array(array('title'=>'好的架构减少运维，好的运维反哺架构','cover'=>$web.'/img/meizi/'.mt_rand(0,9).'.jpg'));
+                    for ($i=0; $i < count($data); $i++) {
+                        if ($res[$i]) {
+                            array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                        }
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
+                
+                case 15:
+                    $res=shejidaren();
+                    $data=array(array('title'=>'设计达人-爱设计，爱分享。','cover'=>$web.'/img/meizi/'.mt_rand(0,9).'.jpg'));
+                    for ($i=0; $i < count($data); $i++) {
+                        if ($res[$i]) {
+                            array_push($data, array('title'=>$res[$i]['title'],'cover'=>$res[$i]['cover'],'link'=>$res[$i]['link']));
+                        }
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
+                
+                case 16:
+                    $res=ri91();
+                    $data=array(array('title'=>'网络安全攻防研究室','cover'=>$web.'/img/91ri.gif'));
+                    for ($i=0; $i < count($data); $i++) {
+                        if ($res[$i]) {
+                            array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                        }
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
+                
+                case 17:
+                    $res=wooyun();
+                    $data=array(array('title'=>'wooyun.org 最新提交漏洞','cover'=>$web.'/img/wooyun.png'));
+                    for ($i=0; $i < count($data); $i++) {
+                        if ($res[$i]) {
+                            array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                        }
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
+                
+                case 18:
+                    $res=sec0x50();
+                    $data=array(array('title'=>'Web安全手册,专注Web安全','cover'=>$web.'/img/0x50sec.png'));
+                    for ($i=0; $i < count($data); $i++) {
+                        if ($res[$i]) {
+                            array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                        }
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
+                
                 default:
                     break;
             }

@@ -3,7 +3,7 @@
 class w {
     //响应请求
     static function response($xml,$data,$type='text') {
-		$time=time();
+        $time=time();
         $xmltpl['text']='<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName>';
         $xmltpl['text'].='<CreateTime>%s</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s]]></Content><FuncFlag>0</FuncFlag></xml>';
         $xmltpl['item']='<item><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><PicUrl><![CDATA[%s]]></PicUrl><Url><![CDATA[%s]]></Url></item>';
@@ -49,7 +49,7 @@ class w {
         }
 
         return self::response($xml,'主人不在家，如果有什么事的话，你可以直接对[小u]说。');
-	}
+    }
 
     /**
     **已知两点的经纬度，计算两点间的距离(公里)
@@ -521,7 +521,7 @@ function stackoverflow(){
     $data=array();
     
     foreach ($arr as $reg){
-    	preg_match_all($reg, $result, $matches);
+        preg_match_all($reg, $result, $matches);
         array_push($res,$matches[1]);
     }
     
@@ -556,6 +556,142 @@ function yyets(){
         preg_match_all($reg, $r, $matches);
         
         array_push($data,array('title'=>$xml->channel->item[$i]->title,'description'=>$xml->channel->item[$i]->description,'cover'=>$matches[1][0],'link'=>$xml->channel->item[$i]->link));
+    }
+
+    return $data;
+}
+
+function songshu(){
+    $data=array();
+    $url='http://songshuhui.net/feed';
+    $result=file_get_contents($url);
+    $xml=simplexml_load_string($result,'SimpleXMLElement', LIBXML_NOCDATA);
+    
+    for ($i=0; $i < 6; $i++) {
+        array_push($data,array('title'=>$xml->channel->item[$i]->title,'description'=>$xml->channel->item[$i]->description,'link'=>$xml->channel->item[$i]->link));
+    }
+
+    return $data;
+}
+
+function ifanr(){
+    $data=array();
+    $url='http://www.ifanr.com/feed';
+    $result=file_get_contents($url);
+    $xml=simplexml_load_string($result,'SimpleXMLElement', LIBXML_NOCDATA);
+    
+    for ($i=0; $i < 6; $i++) {
+        $reg='#(.+)题图来自#i';
+        preg_match_all($reg, $xml->channel->item[$i]->description, $matches);
+        array_push($data,array('title'=>$xml->channel->item[$i]->title,'description'=>$matches[1],'cover'=>$xml->channel->item[$i]->image,'link'=>$xml->channel->item[$i]->link));
+    }
+
+    return $data;
+}
+
+function bookrank(){
+    $data=array();
+    $url='http://rss.sina.com.cn/book/history_rank.xml';
+    $result=file_get_contents($url);
+    $xml=simplexml_load_string($result,'SimpleXMLElement', LIBXML_NOCDATA);
+    
+    for ($i=0; $i < 6; $i++) {
+        array_push($data,array('title'=>$xml->channel->item[$i]->title,'description'=>$xml->channel->item[$i]->description,'link'=>$xml->channel->item[$i]->link));
+    }
+
+    return $data;
+}
+
+function matrix67(){
+    $data=array();
+    $url='http://www.matrix67.com/blog/feed';
+    $result=file_get_contents($url);
+    $xml=simplexml_load_string($result,'SimpleXMLElement', LIBXML_NOCDATA);
+    
+    for ($i=0; $i < 6; $i++) {
+        array_push($data,array('title'=>$xml->channel->item[$i]->title,'description'=>str_replace('&#160;','',$xml->channel->item[$i]->description),'link'=>$xml->channel->item[$i]->link));
+    }
+
+    return $data;
+}
+
+function freebuf(){
+    $data=array();
+    $url='http://www.freebuf.com/feed';
+    $result=file_get_contents($url);
+    $xml=simplexml_load_string($result,'SimpleXMLElement', LIBXML_NOCDATA);
+    
+    for ($i=0; $i < 6; $i++) {
+        array_push($data,array('title'=>$xml->channel->item[$i]->title,'description'=>htmlspecialchars_decode($xml->channel->item[$i]->description),'link'=>$xml->channel->item[$i]->link));
+    }
+
+    return $data;
+}
+
+function nginx(){
+    $data=array();
+    $url='http://www.nginx.cn/feed';
+    $result=file_get_contents($url);
+    $xml=simplexml_load_string($result,'SimpleXMLElement', LIBXML_NOCDATA);
+    
+    for ($i=0; $i < 6; $i++) {
+        array_push($data,array('title'=>$xml->channel->item[$i]->title,'description'=>$xml->channel->item[$i]->description,'link'=>$xml->channel->item[$i]->link));
+    }
+
+    return $data;
+}
+
+function shejidaren(){
+    $data=array();
+    $url='http://www.shejidaren.com/feed';
+    $result=file_get_contents($url);
+    $xml=simplexml_load_string($result,'SimpleXMLElement', LIBXML_NOCDATA);
+    
+    for ($i=0; $i < 6; $i++) {
+        $reg='#<img src="(http://images\.shejidaren\.com/wp-content/uploads/.+)"[\s]+class#i';
+        preg_match_all($reg,$xml->channel->item[$i]->description,$matches);
+        array_push($data,array('title'=>$xml->channel->item[$i]->title,'cover'=>$matches[1][0],'link'=>$xml->channel->item[$i]->link));
+    }
+
+    return $data;
+}
+
+function ri91(){
+    $data=array();
+    $url='http://www.91ri.org/feed';
+    $result=file_get_contents($url);
+    $xml=simplexml_load_string($result,'SimpleXMLElement', LIBXML_NOCDATA);
+    
+    for ($i=0; $i < 6; $i++) {
+        array_push($data,array('title'=>$xml->channel->item[$i]->title,'description'=>$xml->channel->item[$i]->description,'link'=>$xml->channel->item[$i]->link));
+    }
+
+    return $data;
+}
+
+function wooyun(){
+    $data=array();
+    $url='http://www.wooyun.org/feeds/submit';
+    $result=file_get_contents($url);
+    $xml=simplexml_load_string($result,'SimpleXMLElement', LIBXML_NOCDATA);
+    
+    for ($i=0; $i < 6; $i++) {
+        $reg='#<strong>简要描述：</strong><br/>(.+)<br/><strong>详细说明#i';
+        preg_match_all($reg,$xml->channel->item[$i]->description, $matches);
+        array_push($data,array('title'=>$xml->channel->item[$i]->title,'description'=>'简要描述：'.$matches[1][0],'link'=>$xml->channel->item[$i]->link));
+    }
+
+    return $data;
+}
+
+function sec0x50(){
+    $data=array();
+    $url='http://www.0x50sec.org/feed/';
+    $result=file_get_contents($url);
+    $xml=simplexml_load_string($result,'SimpleXMLElement', LIBXML_NOCDATA);
+    
+    for ($i=0; $i < 6; $i++) {
+        array_push($data,array('title'=>$xml->channel->item[$i]->title,'description'=>$xml->channel->item[$i]->description,'link'=>$xml->channel->item[$i]->link));
     }
 
     return $data;
