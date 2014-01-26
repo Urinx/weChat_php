@@ -388,6 +388,16 @@ Type 'help;' or '\h' for help. Type '\c' to clear the buffer.";
                     }
                 }
             }
+            //yyets
+            elseif($content=='人人影视'){
+                $res=yyets();
+                $data=array(array('title'=>'人人影视','cover'=>$web.'/img/meizi/'.mt_rand(0,9).'.jpg'));
+                for ($i=0; $i < count($data); $i++) {
+                    if ($res[$i]) {
+                        array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'cover'=>$res[$i]['cover'],'link'=>$res[$i]['link']));
+                    }
+                }
+            }
         }
     }
 
@@ -433,8 +443,8 @@ Type 'help;' or '\h' for help. Type '\c' to clear the buffer.";
         else{exit(W::response($xml,$data));}
     }
     else{
-        if (rand(1,15)==6){
-            switch (rand(1,7)) {
+        if (rand(1,10)==6){
+            switch (rand(1,8)) {
                 case 1:
                     exit(W::response($xml,"聊了这么久小u给你讲个笑话吧：\n".jokes()));
                     break;
@@ -484,6 +494,17 @@ Type 'help;' or '\h' for help. Type '\c' to clear the buffer.";
                     for ($i=0; $i < count($data); $i++) {
                         if ($res[$i]) {
                             array_push($data, array('title'=>$res[$i]['category'].':'.$res[$i]['title'],'note'=>$res[$i]['description'],'link'=>$res[$i]['link']));
+                        }
+                    }
+                    exit(W::response($xml,$data,'news'));
+                    break;
+                
+                case 8:
+                    $res=yyets();
+                    $data=array(array('title'=>'人人影视','cover'=>$web.'/img/meizi/'.mt_rand(0,9).'.jpg'));
+                    for ($i=0; $i < count($data); $i++) {
+                        if ($res[$i]) {
+                            array_push($data, array('title'=>$res[$i]['title'],'note'=>$res[$i]['description'],'cover'=>$res[$i]['cover'],'link'=>$res[$i]['link']));
                         }
                     }
                     exit(W::response($xml,$data,'news'));
