@@ -29,7 +29,7 @@ def mail(to,subject,body):
     pass
 
 def gmail(to,subject,body):
-    sae.mail.send_mail(to,subject,body,('smtp.gmail.com', 587, 'uri.lqy@gmail.com', 'lqyiscurvaceous', True))
+    sae.mail.send_mail(to,subject,body,('smtp.gmail.com', 587, 'uri.lqy@gmail.com', 'password', True))
     return '发送成功！'
     
 def fenci(chinese_text):
