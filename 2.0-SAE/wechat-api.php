@@ -696,4 +696,56 @@ function sec0x50(){
 
     return $data;
 }
+
+function ghost_story($w='灵异知识库'){
+    global $ghost;
+    $data=array();
+    $url='http://www.gui44.com/data/rss/'.$ghost[$w].'.xml';
+    $xml=simplexml_load_file($url,'SimpleXMLElement',LIBXML_NOCDATA);
+
+    if($xml){
+        if($w=='听鬼故事'){
+            for ($i=0; $i < 5; $i++) {
+                $j=$xml->channel->item[$i];
+                array_push($data,array('title'=>$i.'. '.$j->title,'description'=>'','link'=>$j->link,'pubDate'=>$j->pubDate,'author'=>$j->author));
+            }
+            array_push($data,array('title'=>'5...49 还有更多'));
+            array_push($data,array('title'=>'回复关键字[张震]随机收听'."\n".'回复[张震 序号]指定收听第几个'));
+        }
+        else{
+            for ($i=0; $i < 6; $i++) {
+                $j=$xml->channel->item[$i];
+                array_push($data,array('title'=>$j->title,'description'=>$j->description,'link'=>$j->link,'pubDate'=>$j->pubDate,'author'=>$j->author));
+            }
+        }
+    }
+    else{
+        $result=file_get_contents($url);
+        $result=iconv('gb2312','gbk',$result);
+        $result=iconv('gbk','utf-8',$result);
+        preg_match_all( "/\<item\>(.*?)\<\/item\>/s",$result,$items);
+        for ($i=0; $i < 6; $i++){
+            preg_match_all( "/\<title\>\<\!\[CDATA\[(.*?)\]\]\>\<\/title\>/",$items[0][$i],$title);
+            $title=$title[1][0];
+            preg_match_all( "/\<description\>\<\!\[CDATA\[(.*?)\]\]\>\<\/description\>/",$items[0][$i],$description);
+            $description=$description[1][0];
+            preg_match_all( "/\<link\>(.*?)\<\/link\>/",$items[0][$i],$link);
+            $link=$link[1][0];
+            preg_match_all( "/\<pubDate\>(.*?)\<\/pubDate\>/",$items[0][$i],$pubDate);
+            $pubDate=$pubDate[1][0];
+            preg_match_all( "/\<author\>(.*?)\<\/author\>/",$items[0][$i],$author);
+            $author=$author[1][0];
+            array_push($data,array('title'=>$title,'description'=>$description,'link'=>$link,'pubDate'=>$pubDate,'author'=>$author));
+        }
+    }
+    
+    return $data;
+}
+
+function zhangzhen($i){
+    $xml=simplexml_load_file('http://www.gui44.com/data/rss/10.xml','SimpleXMLElement',LIBXML_NOCDATA);
+    preg_match_all('#flashvars="son=(.*?)&amp;autoplay=1&amp;autoreplay=0"#s',file_get_contents($xml->channel->item[$i]->link),$u);
+    $title=str_replace(array('张震讲鬼故事系列之','张震讲鬼故事系列','张震鬼故事之','张震讲鬼故事'), '',$xml->channel->item[$i]->title);
+    return array('title'=>$title,'description'=>'张震','musicurl'=>$u[1][0],'HQmusicurl'=>$u[1][0]);
+}
 ?>
