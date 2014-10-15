@@ -760,7 +760,8 @@ Type 'help;' or '\h' for help. Type '\c' to clear the buffer.";
             }
         }
         else{
-            exit(W::response($xml,simsimi($content)));
+            //exit(W::response($xml,simsimi($content)));
+            exit(W::response($xml,xiaodoubi($content)));
         }
     }
 }
