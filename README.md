@@ -3,10 +3,8 @@
 自己的一个微信后台代码
 ===================
 
-求大家关注我的微信公众号:urinx
+欢迎大家关注我的微信公众号:[urinx](http://weixin.sogou.com/gzh?openid=oIWsFt6BhfHwKUIyFvNp6A6JEsGM)
 ---------------------------
-
-![urinx](http://paiplace.5gbfree.com/wechat/img/xiaou.jpg "urinx")
 
 ###文件说明
 >1.0
@@ -182,7 +180,7 @@ md5加密:发送"md5:+你要加密的文字",返回32位的hash。例如:md5:123
 Note:[xx]内的内容xx是指你发送的
 
 ###主页
-http://paiplace.5gbfree.com/
+http://urinx.github.io/
 
 ###contact me
 >QQ:1336006643
