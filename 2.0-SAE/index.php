@@ -15,13 +15,13 @@ if(W::isPOST()){
     $content=trim($xml->Content);
     $type=strtolower($xml->MsgType);
     $openid=$xml->FromUserName;
-    $web='http://paiplace.5gbfree.com/wechat';
-    $mp='http://mp.weixin.qq.com/mp/appmsg/show';
+    $web='http://mmbiz.qpic.cn/mmbiz/';
+    $mp='http://mp.weixin.qq.com/s';
     $xiaoU=array(
-        array('title'=>'Uri','cover'=>$web.'/img/xiaou.jpg','link'=>$mp.'?__biz=MzA3MjAzMTgyMA==&appmsgid=10000058&itemidx=1&sign=93bf84e650d4df87196988b342b65644&uin=MTg0MTcyODUwMQ%3D%3D&key=1f75b224f2ddfcb63ee0ec9833578cef7b1a67f0a5b8764f174219e1dea6ff39600f23b296cd7601a031fb617c173721&devicetype=android-17&version=25000104&lang=zh_CN'),
-        array('title'=>'功能介绍','cover'=>$web.'/img/function.png','link'=>$mp.'?__biz=MzA3MjAzMTgyMA==&appmsgid=10000058&itemidx=2&sign=aa817cfb12b9117cb518d4ab268d28b9&uin=MTg0MTcyODUwMQ%3D%3D&key=a45a7c15a542fe6fc8cb6988104ee36150747c2ada475afb2ac31bce5694e6c3926bef8e4a56de8e63d7ca0e91c68a1f&devicetype=android-17&version=25000104&lang=zh_CN'),
-        array('title'=>'任务进度','cover'=>$web.'/img/taskprocess.png','link'=>$mp.'?__biz=MzA3MjAzMTgyMA==&appmsgid=10000058&itemidx=3&sign=5edb8953ca274271a239626c434df4a2&uin=MTg0MTcyODUwMQ%3D%3D&key=1f75b224f2ddfcb6c670a05130da7f8843902f3277a89843ae023cec9a770260f883566234a1185fec8257197f241425&devicetype=android-17&version=25000104&lang=zh_CN'),
-        array('title'=>'联系我们','cover'=>$web.'/img/contactme.png','link'=>$mp.'?__biz=MzA3MjAzMTgyMA==&appmsgid=10000058&itemidx=4&sign=a7d37be0a672e5c2085330799836992b&uin=MTg0MTcyODUwMQ%3D%3D&key=1f75b224f2ddfcb62c58bc42a307d4f512acd5bfc822af05b55a2f55325983e93e612b5c098985be9b9909a57e7eab5e&devicetype=android-17&version=25000104&lang=zh_CN')
+        array('title'=>'Uri','cover'=>$web.'icv3Y2jicj1r5zVuHbibOR7ztYtd6tl8zShn0ibKxLCavToicWMuQ8iaJ9wiaK5AqB19KdDOvGXvPQibKfnFABtWIVpwtQ/0?wxfrom=5','link'=>$mp.'?__biz=MzA3MjAzMTgyMA==&mid=10000058&idx=1&sn=93bf84e650d4df87196988b342b65644#rd'),
+        array('title'=>'功能介绍','cover'=>$web.'icv3Y2jicj1r5zVuHbibOR7ztYtd6tl8zShXae61cDyL3FDfgB2CEsXyI4lqDXyUyqwGIvWjjKm0jlOy3fCfhPibuQ/0?wxfrom=5','link'=>$mp.'?__biz=MzA3MjAzMTgyMA==&mid=10000058&idx=2&sn=aa817cfb12b9117cb518d4ab268d28b9#rd'),
+        array('title'=>'任务进度','cover'=>$web.'icv3Y2jicj1r5zVuHbibOR7ztYtd6tl8zShbfNUxPaicSwXY3daHy1BVbxpx7CEjym1VicU4b3T6dSd6XIjiaRE0lRkA/0?wxfrom=5','link'=>$mp.'?__biz=MzA3MjAzMTgyMA==&mid=10000058&idx=3&sn=5edb8953ca274271a239626c434df4a2#rd'),
+        array('title'=>'联系我们','cover'=>$web.'icv3Y2jicj1r5zVuHbibOR7ztYtd6tl8zShO7B8lIEN05Niao9CnJGYsFFviayfqRyOrPGj5JwfGa8zmDYEf1S2DVaA/0?wxfrom=5','link'=>$mp.'?__biz=MzA3MjAzMTgyMA==&mid=10000058&idx=4&sn=a7d37be0a672e5c2085330799836992b#rd')
     );
     $biaoqing=array(
         '/::)','/::~','/::B','/::|','/:8-)','/::<','/::$','/::X','/::Z','/::\'(','/::-|',
@@ -187,11 +187,8 @@ Type 'help;' or '\h' for help. Type '\c' to clear the buffer.";
                 $data='在！';
             }
             elseif($content=='帮助'){
-                $data='这是目前小u有的功能:'."\n".'-----------------'."\n".'[小u]'."\n".':查看小u的基本信息，以及功能介绍和近期更新'."\n".'-----------------'."\n".'[帮助]'."\n".':查看使用帮助'."\n".'-----------------'."\n".'[查水表]'."\n".':查询寝室的水电费(华科)'."\n".'-----------------'."\n".'[每日一句]'."\n".':每天更新一句英语，中英对照'."\n".'-----------------'."\n".'[点歌]'."\n".':小u每天会为大家推荐好的歌曲，希望大家喜欢。如果想给某人点歌的话，可以直接跟我说哦'."\n".'-----------------'."\n".'[笑话]'."\n".':郁闷时看看笑话吧，小u这里有好多笑话等着你呢'."\n".'-----------------'."\n".'[新闻]'."\n".':没事的时候大家多看看新闻吧，小u不懈的为你奉送中'."\n".'-----------------'."\n".'[彩票]'."\n".':每天的彩票信息一目了然'."\n".'-----------------'."\n".'翻译'."\n".':发送"#+你要翻译的内容",即可收到详细结果，例如:#doofus'."\n".'-----------------'."\n".'天气+找小u'."\n".':点击下面的“+”，发送你的的位置信息，即可收到本地的天气预报，并且看到你和小u的距离哟。'."\n".'-----------------'."\n".'bing搜索'."\n".':发送"%+你要搜索的内容",即可收到详细结果，例如:%dweeb'."\n".'-----------------'."\n".'维基百科'."\n".':发送"&+你要搜索的内容",小u会根据你的输入自动判断查询中文维基或是英文,(*^__^*) 嘻嘻。例如:&spaz'."\n".'-----------------'."\n".'二维码'."\n".':发送"*+你要生成的内容",小u会返回生成的二维码。例如:*嘟嘟噜'."\n".'-----------------';
-                $data.="\n".'豆瓣'."\n".'1.书'."\n".' bs:关键字 搜索相关的书籍'."\n".' b:书名 查看详细内容'."\n".'2.音乐'."\n".' ms:关键字 搜索相关的音乐'."\n".' m:音乐名 查看详细内容'."\n".'3.电影'."\n".' vs:关键字 搜索相关的电影'."\n".' v:电影名 查看详细内容'."\n".'-----------------';
-                $data.="\n".'动态'."\n".':发送":+你要分享的文字"即可，大家可以回复[动态]查看，都可以看到哦。例如 :这是我发的第一个说说'."\n".'-----------------';
-                $data.="\n".'美女识别'."\n".':上传图片，看看小u的眼力吧'."\n".'-----------------'."\n".'周公解梦'."\n".':发送"梦到xxx",小u来预测吉凶，例如"梦到小u"'."\n".'-----------------'."\n".'手机号码查询'."\n".':直接发送手机号'."\n".'-----------------';
-                $data.="\n".'#[xx]内的内容xx是指你发送给小u的';
+                $data=array(array('title'=>'小u帮助指南','cover'=>$web.'icv3Y2jicj1r5zVuHbibOR7ztYtd6tl8zShn0ibKxLCavToicWMuQ8iaJ9wiaK5AqB19KdDOvGXvPQibKfnFABtWIVpwtQ/0?wxfrom=5','link'=>$mp.'?__biz=MzA3MjAzMTgyMA==&mid=10000058&idx=2&sn=aa817cfb12b9117cb518d4ab268d28b9#rd'));
+                array_push($data,array('title'=>$help));
             }
             elseif($content=='查水表'){
                 $data='查询电费请点击这里：'."\n".'<a href="http://42.120.22.130/dianfei.php">查电费</a>。'."\n".'低余电费自动提醒功能请点击这里：'."\n".'<a href="http://42.120.22.130:8822/">邮件提醒</a>';
