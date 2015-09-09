@@ -355,22 +355,24 @@ function bing($query,$type){
     return $arr;
 }
 
-function wiki($srsearch,$lng){
+function wiki($srsearch){
     if (ctype_alnum($srsearch)) {
         $lng='en';
     }
     else{
         $lng='zh';
         $srsearch=urlencode($srsearch);
+        return '中文维基被墙啦！';
     }
-    $wiki_api_url='http://'.$lng.'.wikipedia.org/w/api.php?action=query&list=search&srwhat=text&format=xml&srsearch='.$srsearch;
+    $wiki_api_url='http://'.$lng.'.wikipedia.org/w/api.php?action=query&list=search&srwhat=text&format=xml&rawcontinue&srsearch='.$srsearch;
     $result=file_get_contents($wiki_api_url);
     $xmldata=simplexml_load_string($result);
 
     $arr=array();
     foreach ($xmldata->query->search->p as $value) {
-        $value['snippet']=str_replace(array('<span class=\'searchmatch\'>','</span>','<b>','</b>',' '), '', $value['snippet']);
-        array_push($arr,array('title'=>$value['title'],'snippet'=>$value['snippet']));
+        $value['snippet']=str_replace(array('<span class="searchmatch">','</span>','<b>','</b>'), '', $value['snippet']);
+        $value['snippet']=html_entity_decode($value['snippet'], ENT_QUOTES);
+        array_push($arr,array('title'=>$value['title'],'snippet'=>$value['snippet'],'link'=>'http://'.$lng.'.wikipedia.org/wiki/'.$value['title']));
     }
     return $arr;
 }

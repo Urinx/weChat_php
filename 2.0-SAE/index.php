@@ -237,10 +237,14 @@ Type 'help;' or '\h' for help. Type '\c' to clear the buffer.";
             }
             //wiki
             elseif (preg_match('/^(&)(.+)/i',$content,$matches)){
-                $wiki=wiki($matches[2],$lng);
-                $data=array();
-                for ($i=0;$i<5;$i++){ 
-                    array_push($data,array('title'=>$wiki[$i]['title']."\n".'------------------------------------------','note'=>$wiki[$i]['snippet'],'cover'=>'','link'=>'http://zh.wikipedia.org/wiki/'.$wiki[$i]['title']));
+                $wiki=wiki($matches[2]);
+                if (is_array($wiki)) {
+                    $data=array();
+                    for ($i=0;$i<5;$i++){ 
+                        array_push($data,array('title'=>'# '.$wiki[$i]['title']."\n".'------------------------------------------','note'=>$wiki[$i]['snippet'],'cover'=>'','link'=>$wiki[$i]['link']));
+                    }
+                } else {
+                    $data=$wiki;
                 }
             }
             //qrcode
